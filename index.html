@@ -1,0 +1,743 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Designer - UX/UI Portfolio</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Config for Tailwind to match the React Theme -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Tomato Grotesk', 'Space Grotesk', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        gray: {
+                            900: '#111827',
+                            950: '#030712',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar for a premium feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #22c55e; 
+        }
+        
+        .card-details {
+            transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        
+        .card-details.open {
+            max-height: 1000px; /* Arbitrary large height for transition */
+            opacity: 1;
+        }
+
+        .hero-image-container {
+            transition: height 0.5s ease-in-out;
+            height: 16rem; /* h-64 equivalent */
+        }
+        
+        .card-details.open ~ .hero-image-container,
+        .project-card.expanded .hero-image-container {
+            height: 20rem; /* h-80 equivalent */
+        }
+    </style>
+</head>
+<body class="bg-black text-gray-100 font-body selection:bg-green-500/30">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-lg border-b border-gray-800">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-green-500 to-emerald-700 rounded-lg flex items-center justify-center shadow-lg shadow-green-900/20">
+                    <span class="font-bold text-white font-display">A</span>
+                </div>
+                <span class="font-bold text-lg tracking-tight font-display">Aman UX UI</span>
+            </div>
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-400">
+                <a href="#" class="hover:text-green-400 transition-colors">Work</a>
+                <a href="#" class="hover:text-green-400 transition-colors">Philosophy</a>
+                <a href="#" class="hover:text-green-400 transition-colors">Resume</a>
+                <button class="bg-white text-black px-4 py-2 rounded-full font-bold hover:bg-green-400 transition-colors font-display">
+                    Contact Me
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-6 pt-32 pb-20">
+
+        <!-- Hero Section -->
+        <div class="mb-20">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-12">
+                <div class="max-w-2xl">
+                    <h4 class="text-green-400 font-medium mb-4 flex items-center gap-2 font-display">
+                        <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.5)]"></span>
+                        Lead UX/UI Designer
+                    </h4>
+                    <h1 class="text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-[1.1] mb-6 font-display">
+                        Designing for <br/>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400">
+                            Business Impact.
+                        </span>
+                    </h1>
+                    <p class="text-xl text-gray-400 leading-relaxed max-w-xl font-body">
+                        I specialize in crafting impactful digital products. Currently leading design strategy at Mediagarh, 
+                        I manage the end-to-end design of high-converting web applications for the EdTech sector, 
+                        grounded in user psychology and data-driven insights.
+                    </p>
+                </div>
+                
+                <!-- Updated Profile Image Section -->
+                <div class="flex flex-col gap-4 items-start md:items-end">
+                    <div class="relative group">
+                        <!-- Increased size from w-32 h-32 to w-48 h-48 -->
+                        <div class="w-48 h-48 rounded-2xl overflow-hidden border-2 border-green-500/30 shadow-[0_0_30px_rgba(34,197,94,0.3)]">
+                            <!-- REPLACE THIS SRC WITH YOUR IMAGE URL -->
+                            <img src="https://i.postimg.cc/FzwtdXB6/img(2).jpg" 
+                                 alt="Aman Usmani" 
+                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            >
+                        </div>
+                        <div class="absolute -bottom-3 -right-3 bg-green-500 text-black text-xs font-bold px-3 py-1.5 rounded-full border-4 border-black shadow-lg">
+                            OPEN TO WORK
+                        </div>
+                    </div>
+                    <div class="text-right mt-2">
+                        <h3 class="text-white font-bold text-xl font-display tracking-tight">Aman Usmani</h3>
+                        <p class="text-green-400 text-base font-medium font-body tracking-wide uppercase">UX Prowess</p>
+                    </div>
+                    
+                    <button class="mt-2 flex items-center gap-2 text-gray-400 hover:text-white border-b border-gray-700 hover:border-white pb-1 transition-all font-display text-sm">
+                        Download Full Resume <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Aggregate Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- Stat 1 -->
+                <div class="bg-gray-900/80 border border-green-900/30 p-6 rounded-2xl backdrop-blur-sm hover:bg-gray-900 hover:border-green-500/50 transition-all duration-300 group">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 bg-green-900/20 rounded-lg text-green-400 group-hover:text-green-300 group-hover:bg-green-900/40 transition-colors">
+                            <i data-lucide="trending-up" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-xs font-mono text-green-600 bg-green-950/30 px-2 py-1 rounded border border-green-900/50">CAREER</span>
+                    </div>
+                    <div class="space-y-1">
+                        <h3 class="text-3xl font-display font-bold text-white tracking-tight">Improved</h3>
+                        <p class="text-sm text-gray-400 font-medium font-body">Conversion Rate</p>
+                        <p class="text-xs text-gray-500 mt-2 group-hover:text-green-400/70 transition-colors font-body">Optimized User Flows</p>
+                    </div>
+                </div>
+                <!-- Stat 2 -->
+                <div class="bg-gray-900/80 border border-green-900/30 p-6 rounded-2xl backdrop-blur-sm hover:bg-gray-900 hover:border-green-500/50 transition-all duration-300 group">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 bg-green-900/20 rounded-lg text-green-400 group-hover:text-green-300 group-hover:bg-green-900/40 transition-colors">
+                            <i data-lucide="users" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-xs font-mono text-green-600 bg-green-950/30 px-2 py-1 rounded border border-green-900/50">CAREER</span>
+                    </div>
+                    <div class="space-y-1">
+                        <h3 class="text-3xl font-display font-bold text-white tracking-tight">80+</h3>
+                        <p class="text-sm text-gray-400 font-medium font-body">Clients Served</p>
+                        <p class="text-xs text-gray-500 mt-2 group-hover:text-green-400/70 transition-colors font-body">Global & Domestic</p>
+                    </div>
+                </div>
+                <!-- Stat 3 -->
+                <div class="bg-gray-900/80 border border-green-900/30 p-6 rounded-2xl backdrop-blur-sm hover:bg-gray-900 hover:border-green-500/50 transition-all duration-300 group">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 bg-green-900/20 rounded-lg text-green-400 group-hover:text-green-300 group-hover:bg-green-900/40 transition-colors">
+                            <i data-lucide="zap" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-xs font-mono text-green-600 bg-green-950/30 px-2 py-1 rounded border border-green-900/50">CAREER</span>
+                    </div>
+                    <div class="space-y-1">
+                        <h3 class="text-3xl font-display font-bold text-white tracking-tight">Improved</h3>
+                        <p class="text-sm text-gray-400 font-medium font-body">Lead Generation</p>
+                        <p class="text-xs text-gray-500 mt-2 group-hover:text-green-400/70 transition-colors font-body">High Quality Leads</p>
+                    </div>
+                </div>
+                <!-- Stat 4 -->
+                <div class="bg-gray-900/80 border border-green-900/30 p-6 rounded-2xl backdrop-blur-sm hover:bg-gray-900 hover:border-green-500/50 transition-all duration-300 group">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="p-3 bg-green-900/20 rounded-lg text-green-400 group-hover:text-green-300 group-hover:bg-green-900/40 transition-colors">
+                            <i data-lucide="globe" class="w-6 h-6"></i>
+                        </div>
+                        <span class="text-xs font-mono text-green-600 bg-green-950/30 px-2 py-1 rounded border border-green-900/50">CAREER</span>
+                    </div>
+                    <div class="space-y-1">
+                        <h3 class="text-3xl font-display font-bold text-white tracking-tight">Enhanced</h3>
+                        <p class="text-sm text-gray-400 font-medium font-body">Brand Visibility</p>
+                        <p class="text-xs text-gray-500 mt-2 group-hover:text-green-400/70 transition-colors font-body">Digital Presence</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters / Section Header -->
+        <div class="flex justify-between items-center mb-10 border-b border-gray-800 pb-6">
+            <h2 class="text-2xl font-bold text-white flex items-center gap-3 font-display">
+                Selected Work 
+                <span class="text-sm font-normal text-green-400 bg-green-900/20 px-2 py-1 rounded-md border border-green-900/30 font-body">5 Projects</span>
+            </h2>
+            <div class="flex gap-4 text-sm text-gray-400 font-body">
+                <span class="text-white cursor-pointer border-b-2 border-green-500 pb-1">All</span>
+                <span class="hover:text-white cursor-pointer transition-colors hover:border-b-2 hover:border-gray-700 pb-1 border-b-2 border-transparent">Mobile</span>
+                <span class="hover:text-white cursor-pointer transition-colors hover:border-b-2 hover:border-gray-700 pb-1 border-b-2 border-transparent">SaaS</span>
+                <span class="hover:text-white cursor-pointer transition-colors hover:border-b-2 hover:border-gray-700 pb-1 border-b-2 border-transparent">Web</span>
+            </div>
+        </div>
+
+        <!-- Project List Container -->
+        <div class="space-y-12" id="projects-container">
+            
+            <!-- Project 1: AESTR by SGV -->
+            <div class="project-card group bg-gray-900 border border-gray-800 rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-green-900/20 transition-all duration-500 hover:border-green-900/50">
+                <div class="hero-image-container w-full relative p-8 flex flex-col justify-between">
+                    <div class="absolute inset-0 z-0 overflow-hidden">
+                        <img src="https://i.postimg.cc/Y9N8W7LD/BG.jpg" alt="AESTR by SGV" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent opacity-90"></div>
+                    </div>
+                    <div class="relative z-10 h-full flex flex-col justify-between">
+                        <div class="flex justify-between items-start">
+                            <span class="bg-black/60 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-full border border-green-500/30 shadow-lg font-body">Web App & Lead Gen</span>
+                            <div class="p-2 bg-black/60 rounded-full backdrop-blur-md text-white/90 border border-white/10 shadow-lg">
+                                <i data-lucide="monitor" class="w-4 h-4"></i>
+                            </div>
+                        </div>
+                        <div class="transform transition-transform duration-500 group-hover:translate-x-2">
+                            <h2 class="text-3xl md:text-4xl font-bold text-white mb-3 drop-shadow-xl tracking-tight font-display">AESTR by SGV</h2>
+                            <p class="text-gray-100/90 max-w-xl line-clamp-2 font-medium drop-shadow-md leading-relaxed text-sm md:text-base font-body">
+                                Architected and designed a high-performance web application from ground zero. Focused on maximizing lead generation through a fully responsive, mobile-first interface.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 md:p-8 relative bg-gray-900">
+                    <!-- Quick Stats -->
+                    <div class="grid grid-cols-3 gap-4 mb-8">
+                        <div class="text-center md:text-left">
+                            <p class="text-xs text-gray-500 uppercase tracking-wider mb-1 font-body">Post-Launch CRO</p>
+                            <p class="text-xl font-bold text-white font-display">8.5% <span class="text-sm text-green-500 font-normal font-body">New</span></p>
+                        </div>
+                        <div class="text-center md:text-left">
+                            <p class="text-xs text-gray-500 uppercase tracking-wider mb-1 font-body">Leads Generated</p>
+                            <p class="text-xl font-bold text-white font-display">2.5k+ <span class="text-sm text-green-500 font-normal font-body">3x</span></p>
+                        </div>
+                        <div class="text-center md:text-left">
+                            <p class="text-xs text-gray-500 uppercase tracking-wider mb-1 font-body">Mobile Engagement</p>
+                            <p class="text-xl font-bold text-white font-display">High <span class="text-sm text-green-500 font-normal font-body">65%</span></p>
+                        </div>
+                    </div>
+
+                    <!-- Expandable Details -->
+                    <div class="card-details">
+                        <div class="grid md:grid-cols-2 gap-8 pb-8 border-t border-gray-800 pt-8">
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-2 text-green-400 mb-2">
+                                    <i data-lucide="target" class="w-5 h-5"></i>
+                                    <h3 class="font-bold uppercase tracking-wider text-sm font-display">The Challenge</h3>
+                                </div>
+                                <p class="text-gray-300 leading-relaxed font-body">SGV needed a powerful lead generation engine built entirely from scratch. With no existing digital footprint, the challenge was to establish immediate credibility and capture market share through a flawless, responsive web application that works perfectly on all devices.</p>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-2 text-emerald-400 mb-2">
+                                    <i data-lucide="zap" class="w-5 h-5"></i>
+                                    <h3 class="font-bold uppercase tracking-wider text-sm font-display">The Solution</h3>
+                                </div>
+                                <p class="text-gray-300 leading-relaxed font-body">Designed and launched a bespoke web application from zero. Prioritized a mobile-first architecture to ensure seamless access. Implemented aggressive lead capture strategies and an intuitive UI that drove immediate user engagement upon launch.</p>
+                            </div>
+                        </div>
+                        <div class="bg-black/20 rounded-2xl p-6 border border-gray-800">
+                            <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-2 font-display">
+                                <i data-lucide="bar-chart-3" class="w-4 h-4 text-green-400"></i> Detailed Performance Metrics
+                            </h3>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <!-- Metrics omitted for brevity, same as before -->
+                                <div class="bg-black/40 rounded-xl p-4 border border-gray-800 hover:border-green-700/50 transition-colors">
+                                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-medium text-gray-400 font-body">Post-Launch CRO</span><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-green-900/30 text-green-400 border border-green-900/50 font-body">New</span></div>
+                                    <div class="flex items-baseline gap-2 mb-1"><span class="text-2xl font-bold text-white font-display">8.5%</span></div>
+                                    <p class="text-xs text-gray-500 leading-tight font-body">Visitor-to-lead conversion rate</p>
+                                </div>
+                                <div class="bg-black/40 rounded-xl p-4 border border-gray-800 hover:border-green-700/50 transition-colors">
+                                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-medium text-gray-400 font-body">Leads Generated</span><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-green-900/30 text-green-400 border border-green-900/50 font-body">3x</span></div>
+                                    <div class="flex items-baseline gap-2 mb-1"><span class="text-2xl font-bold text-white font-display">2.5k+</span></div>
+                                    <p class="text-xs text-gray-500 leading-tight font-body">Qualified leads in first month</p>
+                                </div>
+                                <div class="bg-black/40 rounded-xl p-4 border border-gray-800 hover:border-green-700/50 transition-colors">
+                                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-medium text-gray-400 font-body">Mobile Engagement</span><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-green-900/30 text-green-400 border border-green-900/50 font-body">65%</span></div>
+                                    <div class="flex items-baseline gap-2 mb-1"><span class="text-2xl font-bold text-white font-display">High</span></div>
+                                    <p class="text-xs text-gray-500 leading-tight font-body">Of traffic retained on mobile</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8 flex flex-wrap gap-2">
+                            <span class="text-xs font-medium text-green-500/80 bg-green-950/20 px-3 py-1 rounded-full border border-green-900/30 font-body">#From Scratch</span>
+                            <span class="text-xs font-medium text-green-500/80 bg-green-950/20 px-3 py-1 rounded-full border border-green-900/30 font-body">#Web Application</span>
+                            <span class="text-xs font-medium text-green-500/80 bg-green-950/20 px-3 py-1 rounded-full border border-green-900/30 font-body">#Responsive</span>
+                            <span class="text-xs font-medium text-green-500/80 bg-green-950/20 px-3 py-1 rounded-full border border-green-900/30 font-body">#Lead Gen</span>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="w-full mt-6 flex flex-col md:flex-row gap-3">
+                        <!-- REPLACE LINK HERE FOR AESTR -->
+                        <a href="https://aestr.gyanvihar.org/" target="_blank" rel="noreferrer" class="flex-1 py-4 flex items-center justify-center gap-2 text-sm font-bold text-black bg-white hover:bg-green-400 hover:text-black rounded-xl transition-all font-display shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(34,197,94,0.4)]">
+                            View Live Project <i data-lucide="eye" class="w-4 h-4"></i>
+                        </a>
+                        <button onclick="toggleCard(this)" class="flex-1 py-4 flex items-center justify-center gap-2 text-sm font-medium text-gray-400 hover:text-white bg-gray-800/50 hover:bg-gray-800 rounded-xl transition-all font-body border border-transparent hover:border-gray-700">
+                            <span class="btn-text">View Case Study</span> <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2: IZee Business School -->
+            <div class="project-card group bg-gray-900 border border-gray-800 rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-green-900/20 transition-all duration-500 hover:border-green-900/50">
+                <div class="hero-image-container w-full relative p-8 flex flex-col justify-between">
+                    <div class="absolute inset-0 z-0 overflow-hidden">
+                        <img src="https://i.postimg.cc/0QyVg3HF/BG.jpg" alt="IZee Business School" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent opacity-90"></div>
+                    </div>
+                    <div class="relative z-10 h-full flex flex-col justify-between">
+                        <div class="flex justify-between items-start">
+                            <span class="bg-black/60 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-full border border-green-500/30 shadow-lg font-body">Web Ecosystem & SEO</span>
+                            <div class="p-2 bg-black/60 rounded-full backdrop-blur-md text-white/90 border border-white/10 shadow-lg">
+                                <i data-lucide="monitor" class="w-4 h-4"></i>
+                            </div>
+                        </div>
+                        <div class="transform transition-transform duration-500 group-hover:translate-x-2">
+                            <h2 class="text-3xl md:text-4xl font-bold text-white mb-3 drop-shadow-xl tracking-tight font-display">IZee Business School</h2>
+                            <p class="text-gray-100/90 max-w-xl line-clamp-2 font-medium drop-shadow-md leading-relaxed text-sm md:text-base font-body">
+                                A strategic digital overhaul focused on 'Cracking The Code For Large-Scale Admissions' through a positioning-oriented website and SEO dominance.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 md:p-8 relative bg-gray-900">
+                    <div class="grid grid-cols-3 gap-4 mb-8">
+                        <div class="text-center md:text-left"><p class="text-xs text-gray-500 uppercase tracking-wider mb-1 font-body">Admissions Worth</p><p class="text-xl font-bold text-white font-display">₹26.4 Cr <span class="text-sm text-green-500 font-normal font-body">Record</span></p></div>
+                        <div class="text-center md:text-left"><p class="text-xs text-gray-500 uppercase tracking-wider mb-1 font-body">Website Outlook</p><p class="text-xl font-bold text-white font-display">95% <span class="text-sm text-green-500 font-normal font-body">Positive</span></p></div>
+                        <div class="text-center md:text-left"><p class="text-xs text-gray-500 uppercase tracking-wider mb-1 font-body">Brand Identity</p><p class="text-xl font-bold text-white font-display">77% <span class="text-sm text-green-500 font-normal font-body">Uplift</span></p></div>
+                    </div>
+                    <div class="card-details">
+                        <div class="grid md:grid-cols-2 gap-8 pb-8 border-t border-gray-800 pt-8">
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-2 text-green-400 mb-2">
+                                    <i data-lucide="target" class="w-5 h-5"></i>
+                                    <h3 class="font-bold uppercase tracking-wider text-sm font-display">The Challenge</h3>
+                                </div>
+                                <p class="text-gray-300 leading-relaxed font-body">IZee needed to scale admissions significantly but lacked a cohesive digital identity. Their existing website wasn't effectively communicating their value proposition ('Exposure = Real Success') to prospective MBA and graduate students.</p>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-2 text-emerald-400 mb-2">
+                                    <i data-lucide="zap" class="w-5 h-5"></i>
+                                    <h3 class="font-bold uppercase tracking-wider text-sm font-display">The Solution</h3>
+                                </div>
+                                <p class="text-gray-300 leading-relaxed font-body">Revamped the entire 'Website Outlook' to align with a modern business school aesthetic. Implemented a robust SEO strategy and 'Positioning-Oriented' design elements to establish authority and drive organic traffic.</p>
+                            </div>
+                        </div>
+                        <div class="bg-black/20 rounded-2xl p-6 border border-gray-800">
+                             <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-2 font-display">
+                                <i data-lucide="bar-chart-3" class="w-4 h-4 text-green-400"></i> Detailed Performance Metrics
+                             </h3>
+                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="bg-black/40 rounded-xl p-4 border border-gray-800 hover:border-green-700/50 transition-colors">
+                                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-medium text-gray-400 font-body">Admissions Worth</span><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-green-900/30 text-green-400 border border-green-900/50 font-body">Record</span></div>
+                                    <div class="flex items-baseline gap-2 mb-1"><span class="text-2xl font-bold text-white font-display">₹26.4 Cr</span></div>
+                                    <p class="text-xs text-gray-500 leading-tight font-body">Total value generated via campaigns</p>
+                                </div>
+                                <div class="bg-black/40 rounded-xl p-4 border border-gray-800 hover:border-green-700/50 transition-colors">
+                                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-medium text-gray-400 font-body">Website Outlook</span><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-green-900/30 text-green-400 border border-green-900/50 font-body">Positive</span></div>
+                                    <div class="flex items-baseline gap-2 mb-1"><span class="text-2xl font-bold text-white font-display">95%</span></div>
+                                    <p class="text-xs text-gray-500 leading-tight font-body">User satisfaction & engagement score</p>
+                                </div>
+                                <div class="bg-black/40 rounded-xl p-4 border border-gray-800 hover:border-green-700/50 transition-colors">
+                                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-medium text-gray-400 font-body">Brand Identity</span><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-green-900/30 text-green-400 border border-green-900/50 font-body">Uplift</span></div>
+                                    <div class="flex items-baseline gap-2 mb-1"><span class="text-2xl font-bold text-white font-display">77%</span></div>
+                                    <p class="text-xs text-gray-500 leading-tight font-body">Improvement in market positioning</p>
+                                </div>
+                             </div>
+                        </div>
+                        <div class="mt-8 flex flex-wrap gap-2">
+                            <span class="text-xs font-medium text-green-500/80 bg-green-950/20 px-3 py-1 rounded-full border border-green-900/30 font-body">#Web Design</span>
+                            <span class="text-xs font-medium text-green-500/80 bg-green-950/20 px-3 py-1 rounded-full border border-green-900/30 font-body">#SEO</span>
+                            <span class="text-xs font-medium text-green-500/80 bg-green-950/20 px-3 py-1 rounded-full border border-green-900/30 font-body">#Brand Positioning</span>
+                            <span class="text-xs font-medium text-green-500/80 bg-green-950/20 px-3 py-1 rounded-full border border-green-900/30 font-body">#Education</span>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="w-full mt-6 flex flex-col md:flex-row gap-3">
+                        <!-- REPLACE LINK HERE FOR IZEE -->
+                        <a href="https://www.figma.com/proto/FPdBuoc6RHmsCYziCKVHSd/IZee-Business-School?page-id=1%3A2&node-id=1-7089&viewport=386%2C179%2C0.1&t=QhZW9DBQ7lGyMioJ-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=1%3A7089" target="_blank" rel="noreferrer" class="flex-1 py-4 flex items-center justify-center gap-2 text-sm font-bold text-black bg-white hover:bg-green-400 hover:text-black rounded-xl transition-all font-display shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(34,197,94,0.4)]">
+                            View Live Project <i data-lucide="eye" class="w-4 h-4"></i>
+                        </a>
+                        <button onclick="toggleCard(this)" class="flex-1 py-4 flex items-center justify-center gap-2 text-sm font-medium text-gray-400 hover:text-white bg-gray-800/50 hover:bg-gray-800 rounded-xl transition-all font-body border border-transparent hover:border-gray-700">
+                            <span class="btn-text">View Case Study</span> <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3: LTA School of Beauty -->
+            <div class="project-card group bg-gray-900 border border-gray-800 rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-green-900/20 transition-all duration-500 hover:border-green-900/50">
+                <div class="hero-image-container w-full relative p-8 flex flex-col justify-between">
+                    <div class="absolute inset-0 z-0 overflow-hidden">
+                        <img src="https://i.postimg.cc/W4R83zYK/BG.jpg" alt="LTA School of Beauty" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent opacity-90"></div>
+                    </div>
+                    <div class="relative z-10 h-full flex flex-col justify-between">
+                        <div class="flex justify-between items-start">
+                            <span class="bg-black/60 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-full border border-green-500/30 shadow-lg font-body">Web Design & Strategy</span>
+                            <div class="p-2 bg-black/60 rounded-full backdrop-blur-md text-white/90 border border-white/10 shadow-lg">
+                                <i data-lucide="monitor" class="w-4 h-4"></i>
+                            </div>
+                        </div>
+                        <div class="transform transition-transform duration-500 group-hover:translate-x-2">
+                            <h2 class="text-3xl md:text-4xl font-bold text-white mb-3 drop-shadow-xl tracking-tight font-display">LTA School of Beauty</h2>
+                            <p class="text-gray-100/90 max-w-xl line-clamp-2 font-medium drop-shadow-md leading-relaxed text-sm md:text-base font-body">
+                                A complete digital overhaul for India's best international beauty academy, transforming their online presence into a high-yield student acquisition engine.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 md:p-8 relative bg-gray-900">
+                    <div class="grid grid-cols-3 gap-4 mb-8">
+                        <div class="text-center md:text-left"><p class="text-xs text-gray-500 uppercase tracking-wider mb-1 font-body">Revenue Impact</p><p class="text-xl font-bold text-white font-display">₹21.3 Cr <span class="text-sm text-green-500 font-normal font-body">Total</span></p></div>
+                        <div class="text-center md:text-left"><p class="text-xs text-gray-500 uppercase tracking-wider mb-1 font-body">Admissions</p><p class="text-xl font-bold text-white font-display">125+ <span class="text-sm text-green-500 font-normal font-body">4 Mo</span></p></div>
+                        <div class="text-center md:text-left"><p class="text-xs text-gray-500 uppercase tracking-wider mb-1 font-body">Conversion</p><p class="text-xl font-bold text-white font-display">High <span class="text-sm text-green-500 font-normal font-body">Top</span></p></div>
+                    </div>
+                    <div class="card-details">
+                        <div class="grid md:grid-cols-2 gap-8 pb-8 border-t border-gray-800 pt-8">
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-2 text-green-400 mb-2">
+                                    <i data-lucide="target" class="w-5 h-5"></i>
+                                    <h3 class="font-bold uppercase tracking-wider text-sm font-display">The Challenge</h3>
+                                </div>
+                                <p class="text-gray-300 leading-relaxed font-body">LTA was a 'hidden gem' in a crowded market. They needed to redefine their brand as a modern 'Beauty Career Hub' and convert interest into admissions. The existing digital presence failed to showcase their global CIDESCO standards effectively.</p>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-2 text-emerald-400 mb-2">
+                                    <i data-lucide="zap" class="w-5 h-5"></i>
+                                    <h3 class="font-bold uppercase tracking-wider text-sm font-display">The Solution</h3>
+                                </div>
+                                <p class="text-gray-300 leading-relaxed font-body">Built a fully responsive, visual-first website from scratch using a modern stack. Designed high-converting landing pages tailored for Google & Meta ads, focusing on visual storytelling and clear academic pathways.</p>
+                            </div>
+                        </div>
+                        <div class="bg-black/20 rounded-2xl p-6 border border-gray-800">
+                             <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-2 font-display">
+                                <i data-lucide="bar-chart-3" class="w-4 h-4 text-green-400"></i> Detailed Performance Metrics
+                             </h3>
+                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="bg-black/40 rounded-xl p-4 border border-gray-800 hover:border-green-700/50 transition-colors">
+                                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-medium text-gray-400 font-body">Revenue Impact</span><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-green-900/30 text-green-400 border border-green-900/50 font-body">Total</span></div>
+                                    <div class="flex items-baseline gap-2 mb-1"><span class="text-2xl font-bold text-white font-display">₹21.3 Cr</span></div>
+                                    <p class="text-xs text-gray-500 leading-tight font-body">Revenue influenced by digital strategy</p>
+                                </div>
+                                <div class="bg-black/40 rounded-xl p-4 border border-gray-800 hover:border-green-700/50 transition-colors">
+                                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-medium text-gray-400 font-body">Admissions</span><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-green-900/30 text-green-400 border border-green-900/50 font-body">4 Mo</span></div>
+                                    <div class="flex items-baseline gap-2 mb-1"><span class="text-2xl font-bold text-white font-display">125+</span></div>
+                                    <p class="text-xs text-gray-500 leading-tight font-body">New student enrollments in 4 months</p>
+                                </div>
+                                <div class="bg-black/40 rounded-xl p-4 border border-gray-800 hover:border-green-700/50 transition-colors">
+                                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-medium text-gray-400 font-body">Conversion</span><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-green-900/30 text-green-400 border border-green-900/50 font-body">Top</span></div>
+                                    <div class="flex items-baseline gap-2 mb-1"><span class="text-2xl font-bold text-white font-display">High</span></div>
+                                    <p class="text-xs text-gray-500 leading-tight font-body">From landing page to inquiry</p>
+                                </div>
+                             </div>
+                        </div>
+                        <div class="mt-8 flex flex-wrap gap-2">
+                            <span class="text-xs font-medium text-green-500/80 bg-green-950/20 px-3 py-1 rounded-full border border-green-900/30 font-body">#From Scratch</span>
+                            <span class="text-xs font-medium text-green-500/80 bg-green-950/20 px-3 py-1 rounded-full border border-green-900/30 font-body">#Web Design</span>
+                            <span class="text-xs font-medium text-green-500/80 bg-green-950/20 px-3 py-1 rounded-full border border-green-900/30 font-body">#Responsive</span>
+                            <span class="text-xs font-medium text-green-500/80 bg-green-950/20 px-3 py-1 rounded-full border border-green-900/30 font-body">#Beauty</span>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="w-full mt-6 flex flex-col md:flex-row gap-3">
+                        <!-- REPLACE LINK HERE FOR LTA -->
+                        <a href="https://ltaschoolofbeauty.com/" target="_blank" rel="noreferrer" class="flex-1 py-4 flex items-center justify-center gap-2 text-sm font-bold text-black bg-white hover:bg-green-400 hover:text-black rounded-xl transition-all font-display shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(34,197,94,0.4)]">
+                            View Live Project <i data-lucide="eye" class="w-4 h-4"></i>
+                        </a>
+                        <button onclick="toggleCard(this)" class="flex-1 py-4 flex items-center justify-center gap-2 text-sm font-medium text-gray-400 hover:text-white bg-gray-800/50 hover:bg-gray-800 rounded-xl transition-all font-body border border-transparent hover:border-gray-700">
+                            <span class="btn-text">View Case Study</span> <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 4: Rishihood University -->
+            <div class="project-card group bg-gray-900 border border-gray-800 rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-green-900/20 transition-all duration-500 hover:border-green-900/50">
+                <div class="hero-image-container w-full relative p-8 flex flex-col justify-between">
+                    <div class="absolute inset-0 z-0 overflow-hidden">
+                        <img src="https://i.postimg.cc/ryCwZHLR/BG.jpg" alt="Rishihood University" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent opacity-90"></div>
+                    </div>
+                    <div class="relative z-10 h-full flex flex-col justify-between">
+                        <div class="flex justify-between items-start">
+                            <span class="bg-black/60 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-full border border-green-500/30 shadow-lg font-body">Landing Page & Ad Creative</span>
+                            <div class="p-2 bg-black/60 rounded-full backdrop-blur-md text-white/90 border border-white/10 shadow-lg">
+                                <i data-lucide="monitor" class="w-4 h-4"></i>
+                            </div>
+                        </div>
+                        <div class="transform transition-transform duration-500 group-hover:translate-x-2">
+                            <h2 class="text-3xl md:text-4xl font-bold text-white mb-3 drop-shadow-xl tracking-tight font-display">Rishihood University</h2>
+                            <p class="text-gray-100/90 max-w-xl line-clamp-2 font-medium drop-shadow-md leading-relaxed text-sm md:text-base font-body">
+                                A targeted admission campaign for the B.Des program, utilizing high-impact landing pages and creative ad sets to drive enrollments in Delhi NCR.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 md:p-8 relative bg-gray-900">
+                    <div class="grid grid-cols-3 gap-4 mb-8">
+                        <div class="text-center md:text-left"><p class="text-xs text-gray-500 uppercase tracking-wider mb-1 font-body">Admissions Closed</p><p class="text-xl font-bold text-white font-display">240+ <span class="text-sm text-green-500 font-normal font-body">High</span></p></div>
+                        <div class="text-center md:text-left"><p class="text-xs text-gray-500 uppercase tracking-wider mb-1 font-body">Campaign Value</p><p class="text-xl font-bold text-white font-display">₹20 L+ <span class="text-sm text-green-500 font-normal font-body">ROI</span></p></div>
+                        <div class="text-center md:text-left"><p class="text-xs text-gray-500 uppercase tracking-wider mb-1 font-body">Ad Engagement</p><p class="text-xl font-bold text-white font-display">High <span class="text-sm text-green-500 font-normal font-body">Peak</span></p></div>
+                    </div>
+                    <div class="card-details">
+                        <div class="grid md:grid-cols-2 gap-8 pb-8 border-t border-gray-800 pt-8">
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-2 text-green-400 mb-2">
+                                    <i data-lucide="target" class="w-5 h-5"></i>
+                                    <h3 class="font-bold uppercase tracking-wider text-sm font-display">The Challenge</h3>
+                                </div>
+                                <p class="text-gray-300 leading-relaxed font-body">The university needed to attract creative talent for their Bachelor of Design program amidst stiff competition in the NCR region. General branding wasn't converting; they needed a specific, results-oriented campaign.</p>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-2 text-emerald-400 mb-2">
+                                    <i data-lucide="zap" class="w-5 h-5"></i>
+                                    <h3 class="font-bold uppercase tracking-wider text-sm font-display">The Solution</h3>
+                                </div>
+                                <p class="text-gray-300 leading-relaxed font-body">Designed 'Design Your Future' - a dedicated campaign ecosystem. Created specific landing pages for B.Des admissions optimized for ad traffic. Developed ad creatives (Display & Meta) that resonated with design aspirants.</p>
+                            </div>
+                        </div>
+                        <div class="bg-black/20 rounded-2xl p-6 border border-gray-800">
+                             <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-2 font-display">
+                                <i data-lucide="bar-chart-3" class="w-4 h-4 text-green-400"></i> Detailed Performance Metrics
+                             </h3>
+                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="bg-black/40 rounded-xl p-4 border border-gray-800 hover:border-green-700/50 transition-colors">
+                                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-medium text-gray-400 font-body">Admissions Closed</span><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-green-900/30 text-green-400 border border-green-900/50 font-body">High</span></div>
+                                    <div class="flex items-baseline gap-2 mb-1"><span class="text-2xl font-bold text-white font-display">240+</span></div>
+                                    <p class="text-xs text-gray-500 leading-tight font-body">Confirmed student enrollments</p>
+                                </div>
+                                <div class="bg-black/40 rounded-xl p-4 border border-gray-800 hover:border-green-700/50 transition-colors">
+                                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-medium text-gray-400 font-body">Campaign Value</span><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-green-900/30 text-green-400 border border-green-900/50 font-body">ROI</span></div>
+                                    <div class="flex items-baseline gap-2 mb-1"><span class="text-2xl font-bold text-white font-display">₹20 L+</span></div>
+                                    <p class="text-xs text-gray-500 leading-tight font-body">Direct value generated/Ad Spend efficiency</p>
+                                </div>
+                                <div class="bg-black/40 rounded-xl p-4 border border-gray-800 hover:border-green-700/50 transition-colors">
+                                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-medium text-gray-400 font-body">Ad Engagement</span><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-green-900/30 text-green-400 border border-green-900/50 font-body">Peak</span></div>
+                                    <div class="flex items-baseline gap-2 mb-1"><span class="text-2xl font-bold text-white font-display">High</span></div>
+                                    <p class="text-xs text-gray-500 leading-tight font-body">Through targeted Meta & Display ads</p>
+                                </div>
+                             </div>
+                        </div>
+                        <div class="mt-8 flex flex-wrap gap-2">
+                            <span class="text-xs font-medium text-green-500/80 bg-green-950/20 px-3 py-1 rounded-full border border-green-900/30 font-body">#Landing Page</span>
+                            <span class="text-xs font-medium text-green-500/80 bg-green-950/20 px-3 py-1 rounded-full border border-green-900/30 font-body">#Performance Marketing</span>
+                            <span class="text-xs font-medium text-green-500/80 bg-green-950/20 px-3 py-1 rounded-full border border-green-900/30 font-body">#Higher Ed</span>
+                            <span class="text-xs font-medium text-green-500/80 bg-green-950/20 px-3 py-1 rounded-full border border-green-900/30 font-body">#Creative Strategy</span>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="w-full mt-6 flex flex-col md:flex-row gap-3">
+                        <!-- REPLACE LINK HERE FOR RISHIHOOD -->
+                        <a href="https://rishihood.edu.in/" target="_blank" rel="noreferrer" class="flex-1 py-4 flex items-center justify-center gap-2 text-sm font-bold text-black bg-white hover:bg-green-400 hover:text-black rounded-xl transition-all font-display shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(34,197,94,0.4)]">
+                            View Live Project <i data-lucide="eye" class="w-4 h-4"></i>
+                        </a>
+                        <button onclick="toggleCard(this)" class="flex-1 py-4 flex items-center justify-center gap-2 text-sm font-medium text-gray-400 hover:text-white bg-gray-800/50 hover:bg-gray-800 rounded-xl transition-all font-body border border-transparent hover:border-gray-700">
+                            <span class="btn-text">View Case Study</span> <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 5: Shoolini University LMS Portal -->
+            <div class="project-card group bg-gray-900 border border-gray-800 rounded-3xl overflow-hidden hover:shadow-2xl hover:shadow-green-900/20 transition-all duration-500 hover:border-green-900/50">
+                <div class="hero-image-container w-full relative p-8 flex flex-col justify-between">
+                    <div class="absolute inset-0 z-0 overflow-hidden">
+                        <img src="https://i.postimg.cc/brJYtzF8/Screenshot-2025-12-25-122858.png" alt="Shoolini University LMS Portal" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent opacity-90"></div>
+                    </div>
+                    <div class="relative z-10 h-full flex flex-col justify-between">
+                        <div class="flex justify-between items-start">
+                            <span class="bg-black/60 backdrop-blur-md text-white text-xs font-bold px-3 py-1 rounded-full border border-green-500/30 shadow-lg font-body">Institutional EdTech</span>
+                            <div class="p-2 bg-black/60 rounded-full backdrop-blur-md text-white/90 border border-white/10 shadow-lg">
+                                <i data-lucide="monitor" class="w-4 h-4"></i>
+                            </div>
+                        </div>
+                        <div class="transform transition-transform duration-500 group-hover:translate-x-2">
+                            <h2 class="text-3xl md:text-4xl font-bold text-white mb-3 drop-shadow-xl tracking-tight font-display">Shoolini University LMS Portal</h2>
+                            <p class="text-gray-100/90 max-w-xl line-clamp-2 font-medium drop-shadow-md leading-relaxed text-sm md:text-base font-body">
+                                A comprehensive digital transformation of Shoolini University's learning ecosystem, unifying academics, attendance, and assessments into a single platform.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-6 md:p-8 relative bg-gray-900">
+                    <div class="grid grid-cols-3 gap-4 mb-8">
+                        <div class="text-center md:text-left"><p class="text-xs text-gray-500 uppercase tracking-wider mb-1 font-body">Digital Adoption</p><p class="text-xl font-bold text-white font-display">92% <span class="text-sm text-green-500 font-normal font-body">+35%</span></p></div>
+                        <div class="text-center md:text-left"><p class="text-xs text-gray-500 uppercase tracking-wider mb-1 font-body">Submission Rate</p><p class="text-xl font-bold text-white font-display">95% <span class="text-sm text-green-500 font-normal font-body">+20%</span></p></div>
+                        <div class="text-center md:text-left"><p class="text-xs text-gray-500 uppercase tracking-wider mb-1 font-body">Admin Efficiency</p><p class="text-xl font-bold text-white font-display">High <span class="text-sm text-green-500 font-normal font-body">40hrs</span></p></div>
+                    </div>
+                    <div class="card-details">
+                        <div class="grid md:grid-cols-2 gap-8 pb-8 border-t border-gray-800 pt-8">
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-2 text-green-400 mb-2">
+                                    <i data-lucide="target" class="w-5 h-5"></i>
+                                    <h3 class="font-bold uppercase tracking-wider text-sm font-display">The Challenge</h3>
+                                </div>
+                                <p class="text-gray-300 leading-relaxed font-body">Students and faculty struggled with a fragmented ecosystem of disconnected tools. The lack of a centralized hub for course materials, attendance tracking, and exam schedules resulted in low digital adoption and frequent communication gaps.</p>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-2 text-emerald-400 mb-2">
+                                    <i data-lucide="zap" class="w-5 h-5"></i>
+                                    <h3 class="font-bold uppercase tracking-wider text-sm font-display">The Solution</h3>
+                                </div>
+                                <p class="text-gray-300 leading-relaxed font-body">Designed a centralized, mobile-responsive LMS dashboard. Integrated real-time attendance tracking, a 'One-Click' assignment submission flow, and a unified academic calendar to give students total visibility over their semester.</p>
+                            </div>
+                        </div>
+                        <div class="bg-black/20 rounded-2xl p-6 border border-gray-800">
+                             <h3 class="text-sm font-bold text-white uppercase tracking-wider mb-4 flex items-center gap-2 font-display">
+                                <i data-lucide="bar-chart-3" class="w-4 h-4 text-green-400"></i> Detailed Performance Metrics
+                             </h3>
+                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class="bg-black/40 rounded-xl p-4 border border-gray-800 hover:border-green-700/50 transition-colors">
+                                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-medium text-gray-400 font-body">Digital Adoption</span><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-green-900/30 text-green-400 border border-green-900/50 font-body">+35%</span></div>
+                                    <div class="flex items-baseline gap-2 mb-1"><span class="text-2xl font-bold text-white font-display">92%</span></div>
+                                    <p class="text-xs text-gray-500 leading-tight font-body">Student daily active users</p>
+                                </div>
+                                <div class="bg-black/40 rounded-xl p-4 border border-gray-800 hover:border-green-700/50 transition-colors">
+                                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-medium text-gray-400 font-body">Submission Rate</span><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-green-900/30 text-green-400 border border-green-900/50 font-body">+20%</span></div>
+                                    <div class="flex items-baseline gap-2 mb-1"><span class="text-2xl font-bold text-white font-display">95%</span></div>
+                                    <p class="text-xs text-gray-500 leading-tight font-body">On-time assignment submissions</p>
+                                </div>
+                                <div class="bg-black/40 rounded-xl p-4 border border-gray-800 hover:border-green-700/50 transition-colors">
+                                    <div class="flex justify-between items-start mb-2"><span class="text-sm font-medium text-gray-400 font-body">Admin Efficiency</span><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-green-900/30 text-green-400 border border-green-900/50 font-body">40hrs</span></div>
+                                    <div class="flex items-baseline gap-2 mb-1"><span class="text-2xl font-bold text-white font-display">High</span></div>
+                                    <p class="text-xs text-gray-500 leading-tight font-body">Saved per week on manual tracking</p>
+                                </div>
+                             </div>
+                        </div>
+                        <div class="mt-8 flex flex-wrap gap-2">
+                            <span class="text-xs font-medium text-green-500/80 bg-green-950/20 px-3 py-1 rounded-full border border-green-900/30 font-body">#Figma</span>
+                            <span class="text-xs font-medium text-green-500/80 bg-green-950/20 px-3 py-1 rounded-full border border-green-900/30 font-body">#EdTech</span>
+                            <span class="text-xs font-medium text-green-500/80 bg-green-950/20 px-3 py-1 rounded-full border border-green-900/30 font-body">#LMS</span>
+                            <span class="text-xs font-medium text-green-500/80 bg-green-950/20 px-3 py-1 rounded-full border border-green-900/30 font-body">#University</span>
+                        </div>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="w-full mt-6 flex flex-col md:flex-row gap-3">
+                        <!-- REPLACE LINK HERE FOR SHOOLINI -->
+                        <a href="https://elearn.shoolini.online/index.php" target="_blank" rel="noreferrer" class="flex-1 py-4 flex items-center justify-center gap-2 text-sm font-bold text-black bg-white hover:bg-green-400 hover:text-black rounded-xl transition-all font-display shadow-[0_0_10px_rgba(255,255,255,0.1)] hover:shadow-[0_0_15px_rgba(34,197,94,0.4)]">
+                            View Live Project <i data-lucide="eye" class="w-4 h-4"></i>
+                        </a>
+                        <button onclick="toggleCard(this)" class="flex-1 py-4 flex items-center justify-center gap-2 text-sm font-medium text-gray-400 hover:text-white bg-gray-800/50 hover:bg-gray-800 rounded-xl transition-all font-body border border-transparent hover:border-gray-700">
+                            <span class="btn-text">View Case Study</span> <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Bottom CTA -->
+        <div class="mt-24 bg-gradient-to-br from-green-900/20 to-emerald-900/10 rounded-3xl p-12 text-center border border-green-500/10 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500 via-emerald-500 to-lime-500"></div>
+            <h2 class="text-3xl font-bold text-white mb-6 font-display">Ready to create the next great digital product?</h2>
+            <p class="text-gray-400 max-w-lg mx-auto mb-8 font-body">
+                I am confident in my ability to apply my design and leadership skills to any product domain. 
+                Let's connect to discuss how I can help your team.
+            </p>
+            <button class="bg-white text-gray-900 px-8 py-3 rounded-full font-bold hover:bg-green-400 transition-colors flex items-center gap-2 mx-auto shadow-[0_0_15px_rgba(255,255,255,0.1)] font-display">
+                Schedule a Call <i data-lucide="external-link" class="w-4 h-4"></i>
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-800 py-12 text-center text-gray-500 text-sm font-body">
+        <p class="mb-2">Currently pursuing BCA (UX/UI Specialization) at Shoolini University.</p>
+        <p>&copy; Aman UX UI 2025. Built with React & Tailwind.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Card Toggle Functionality
+        function toggleCard(button) {
+            const cardContent = button.closest('.p-6').querySelector('.card-details');
+            const projectCard = button.closest('.project-card');
+            const btnText = button.querySelector('.btn-text');
+            const icon = button.querySelector('i') || button.querySelector('svg');
+
+            if (cardContent.classList.contains('open')) {
+                // Collapse
+                cardContent.classList.remove('open');
+                projectCard.classList.remove('expanded');
+                btnText.textContent = "View Case Study";
+                // Reset icon to down arrow (using Lucide data attribute won't auto-update, so we swap manually or re-render)
+                // Simpler: Just swap innerHTML for the icon part if needed, or rely on text
+                if(icon) icon.setAttribute('data-lucide', 'chevron-down');
+                lucide.createIcons();
+            } else {
+                // Expand
+                cardContent.classList.add('open');
+                projectCard.classList.add('expanded');
+                btnText.textContent = "Less Details";
+                 if(icon) icon.setAttribute('data-lucide', 'chevron-up');
+                 lucide.createIcons();
+            }
+        }
+    </script>
+</body>
+</html>
